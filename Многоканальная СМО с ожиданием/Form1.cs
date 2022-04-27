@@ -98,56 +98,50 @@ namespace Многоканальная_СМО_с_ожиданием
             double lambda = 1 / tpost;
             double mu = 1 / tobsl;
             double alpha = lambda / mu;
-            
-            
-
             double temp = 0.0;
             for (int k = 0; k <= m; k++)
             {
                 if (k <= n) temp += ( (factorial(m) * Math.Pow(alpha, k)) / (factorial(k) * factorial(m - k)));
                 else temp += ( (factorial(m) * Math.Pow(alpha, k)) / (factorial(n) * Math.Pow(n, k - n) * factorial(m - k)) );
             }
-            
             double p0 = 1 / temp;
             List<double> P = new List<double>();
             P.Add(p0);
-
             for (int k = 1; k <= n; k++)
             {
                 P.Add((factorial(m) * Math.Pow(alpha, k)) / (factorial(k) * factorial(m - k)));
             }
-
             for (int k = n+1; k <= m; k++)
             {
                 P.Add((factorial(m) * Math.Pow(alpha, k)) / (factorial(n) * Math.Pow(n, k - n) * factorial(m - k)));
             }
-
             double ls = 0;
             for (int k = n; k <= m; k++)
             {
                 ls += P[k]*k;
             }
             textBoxLs.Text = ls.ToString();
-
             double lq = 0;
             for(int k = n; k<=m; k++)
             {
                 lq+= (P[k]*(k-n)); 
             }
             textBoxLq.Text = lq.ToString();
-
             double kf = 1-(ls/m);
             textBoxK.Text = kf.ToString();
-
             for (int i = 0; i < P.Count; i++)
             {
                 listBox1.Items.Add("P" + i + " = " + P[i].ToString());
             }
+            double kisp = 1 - ls / m;
+            double tq = 1 / lambda * ((1 - kisp) / kisp) - 1 / mu;
+            textBoxTq.Text = tq.ToString();
+            textBoxPn3.Text = P[n+1].ToString();
         }
-        double factorial(double nn)
+        double factorial(double x)
         {
             double res = 1;
-            for (int i = 2; i <= nn; i++)
+            for (int i = 2; i <= x; i++)
             {
                 res *= i;
             }
