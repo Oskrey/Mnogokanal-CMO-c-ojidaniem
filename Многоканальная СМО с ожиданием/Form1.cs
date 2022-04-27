@@ -104,16 +104,15 @@ namespace Многоканальная_СМО_с_ожиданием
                 if (k <= n) temp += ( (factorial(m) * Math.Pow(alpha, k)) / (factorial(k) * factorial(m - k)));
                 else temp += ( (factorial(m) * Math.Pow(alpha, k)) / (factorial(n) * Math.Pow(n, k - n) * factorial(m - k)) );
             }
-            double p0 = 1 / temp;
             List<double> P = new List<double>();
-            P.Add(p0);
+            P.Add(1 / temp);
             for (int k = 1; k <= n; k++)
             {
-                P.Add((factorial(m) * Math.Pow(alpha, k)) / (factorial(k) * factorial(m - k)));
+                P.Add((factorial(m) * Math.Pow(alpha, k)) / (factorial(k) * factorial(m - k))*P[0]);
             }
             for (int k = n+1; k <= m; k++)
             {
-                P.Add((factorial(m) * Math.Pow(alpha, k)) / (factorial(n) * Math.Pow(n, k - n) * factorial(m - k)));
+                P.Add((factorial(m) * Math.Pow(alpha, k)) / (factorial(n) * Math.Pow(n, k - n) * factorial(m - k)) * P[0]);
             }
             double ls = 0;
             for (int k = n; k <= m; k++)
